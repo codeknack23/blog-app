@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+dist/
+build/
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Editor Configs
+.vscode/
+.idea/
+
+# Uploads (if any old upload folder exists)
+uploads/
+
+# Cache and miscellaneous
+.cache/
+tmp/

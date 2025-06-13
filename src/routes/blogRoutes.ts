@@ -2,19 +2,11 @@ import express from 'express';
 import { getBlogs, createBlog, getBlogById } from '../controllers/blogController';
 import { protect } from '../middleware/authMiddleware';
 import multer from 'multer';
-import path from 'path';
 
 const router = express.Router();
 
-// Multer config
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, '../../uploads'),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, `${Date.now()}${ext}`);
-  },
-});
-
+// ✅ Use memory storage instead of disk
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // Routes

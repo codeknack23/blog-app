@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Blog from '../models/Blog';
+import { uploadToCloudinary } from '../services/cloudinary';
 
 export const getBlogs = async (req: Request, res: Response) => {
   const page = Number(req.query.page) || 1;
@@ -14,7 +15,12 @@ export const getBlogs = async (req: Request, res: Response) => {
 
 export const createBlog = async (req: Request, res: Response) => {
   const { title, content } = req.body;
-  const image = req.file ? `/uploads/${req.file.filename}` : undefined;
+  let image;
+
+  if (req.file) {
+    const result = await uploadToCloudinary(req.file.buffer, 'blog-images');
+    image = result.secure_url; // Cloudinary's image URL
+  }
 
   const blog = new Blog({ title, content, image });
   await blog.save();
